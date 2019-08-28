@@ -80,8 +80,8 @@
 	}
 
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-	if (anchors) {  // If the anchors option is enabled, register for frame change notifications
-		[nc addObserver:self selector:@selector(_positionViewFrameChanged:) name:NSViewFrameDidChangeNotification object:self.positionView];
+	if (anchors) {  // If the anchors option is enabled, register for bounds change notifications
+		[nc addObserver:self selector:@selector(_positionViewBoundsChanged:) name:NSViewBoundsDidChangeNotification object:self.positionView];
 	}
 	// When -closesWhenPopoverResignsKey is set to YES, the popover will automatically close when the popover loses its key status
 	if (self.closesWhenPopoverResignsKey) {
@@ -392,7 +392,7 @@
 	return direction;
 }
 
-- (void)_positionViewFrameChanged:(NSNotification *)notification
+- (void)_positionViewBoundsChanged:(NSNotification *)notification
 {
 	NSRect superviewBounds = [[self.positionView superview] bounds];
 	if (!(NSContainsRect(superviewBounds, [self.positionView frame]))) {
